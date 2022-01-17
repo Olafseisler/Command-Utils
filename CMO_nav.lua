@@ -38,12 +38,6 @@ if trig == nil then
     area=circlePoints})
 end
 
-if con == nil then
-    local con = ScenEdit_SetCondition({mode='add',
-    type='ScenHasStarted',
-    name='ScenStarted'})
-end
-
 if act == nil then  
     local script = 'print("works")'
     act = ScenEdit_SetAction({mode='add',type='Points',name='MyFunction',
@@ -54,7 +48,6 @@ end
 if event == nil then
     local event = ScenEdit_SetEvent('event', {mode='add'})
     ScenEdit_SetEventTrigger('event', {mode='add', name='MissileSpawned'})
-    ScenEdit_SetEventCondition('event', {mode='add', name='ScenStarted'})
     ScenEdit_SetEventAction('event', {mode='add', name='MyFunction'})
     event.isRepeatable = true
 end

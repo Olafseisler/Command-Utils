@@ -1,0 +1,29 @@
+{
+    "Lua.diagnostics.globals": [
+        "ScenEdit_GetUnit",
+        "VP_GetSide",
+        "VP_GetUnit",
+        "Tool_Range",
+        "ScenEdit_SetEMCON",
+        "World_GetCircleFromPoint",
+        "ScenEdit_AddReferencePoint",
+        "ScenEdit_SetTrigger",
+        "ScenEdit_SetCondition",
+        "ScenEdit_SetAction",
+        "ScenEdit_SetEvent",
+        "ScenEdit_SetEventTrigger",
+        "ScenEdit_SetEventCondition",
+        "ScenEdit_SetEventAction",
+        "ScenEdit_PlayerSide",
+        "ScenEdit_AddUnit",
+        "ScenEdit_GetLoadout",
+        "ScenEdit_AssignUnitToMission",
+        "ScenEdit_AddWeaponToUnitMagazine",
+        "ScenEdit_DeleteUnit",
+        "Tool_Bearing",
+        "World_GetPointFromBearing",
+        "ScenEdit_GetKeyValue",
+        "ScenEdit_SetKeyValue",
+        "ScenEdit_ClearKeyValue"
+    ]
+}
