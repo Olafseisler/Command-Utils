@@ -24,6 +24,11 @@
         "World_GetPointFromBearing",
         "ScenEdit_GetKeyValue",
         "ScenEdit_SetKeyValue",
-        "ScenEdit_ClearKeyValue"
+        "ScenEdit_ClearKeyValue",
+        "ScenEdit_UnitX",
+        "ScenEdit_GetEvent",
+        "ScenEdit_MsgBox",
+        "ScenEdit_AttackContact",
+        "contactId"
     ]
 }
