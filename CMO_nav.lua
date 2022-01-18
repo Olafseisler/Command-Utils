@@ -2,8 +2,7 @@ local salvoSize = 5
 local interval = 5
 local v_missile = 500
 local wpn_dbid = 377
-local mount_dbid = 387
-
+local mount_dbid = 2533
 local event
 
 function BuildCircleOfRPs(theside, attacker, range) --Builds detection area
@@ -18,14 +17,14 @@ function BuildCircleOfRPs(theside, attacker, range) --Builds detection area
 end
 
 local side_name = ScenEdit_PlayerSide()
-local attacker_id = {name='SSGN 726 Ohio [DDS]', guid='RZD6HZ-0HMEPM7A970LA'}
-local target_contact_id = {name='67N6 Gamma-D', guid='RZD6HZ-0HMEPM7A971IQ'}
+local attacker_id = {name='SSGN 726 Ohio [DDS]', guid='GWKW9V-0HM9I5EHB3JF3'}
+local target_contact_id = {name='67N6 Gamma-D', guid='GWKW9V-0HM9I5EHB3JDT'}
 local attacker = ScenEdit_GetUnit(attacker_id)
 local target = VP_GetUnit(target_contact_id)
 local circlePoints = BuildCircleOfRPs(side_name, attacker, 0.25)
 
-local scriptText = "local id_a = {name='SSGN 726 Ohio [DDS]', guid='RZD6HZ-0HMEPM7A970LA'}\r\n"..
-"local id_b = {name='67N6 Gamma-D', guid='RZD6HZ-0HMEPM7A971IQ'}\r\n"..
+local scriptText = "local id_a = {name='SSGN 726 Ohio [DDS]', guid='GWKW9V-0HM9I5EHB3JF3'}\r\n"..
+"local id_b = {name='67N6 Gamma-D', guid='GWKW9V-0HM9I5EHB3JDT'}\r\n"..
 'local unit_a = ScenEdit_GetUnit(id_a)\r\n'..
 'local unit_b = VP_GetUnit({guid=id_b.guid})\r\n'..
 '\r\n'..
@@ -55,9 +54,14 @@ local scriptText = "local id_a = {name='SSGN 726 Ohio [DDS]', guid='RZD6HZ-0HMEP
 '\r\n'..
 'if missiles >= salvo_size then\r\n'..
 '    ScenEdit_ClearKeyValue(unit_a.guid)\r\n'..
+'    ScenEdit_SetEvent("ToT CM Strike", {mode="remove", IsActive=true, IsRepeatable=true})\r\n'..
+'    ScenEdit_SetAction({mode="remove", type="LuaScript", name="SetMslPath"})\r\n'..
+'    ScenEdit_SetTrigger({mode="remove", type="UnitEntersArea", name="MslSpawned"})\r\n'..
 'else\r\n'..
 '    ScenEdit_SetKeyValue(unit_a.guid, tostring(missiles + 1))\r\n'..
-'end'
+'end\r\n'
+
+
 
 local status, exception = pcall(ScenEdit_GetEvent, "ToT CM Strike")
 if status then
@@ -67,14 +71,19 @@ else
 
     ScenEdit_SetTrigger({mode='add',
             type='UnitEntersArea',
-            name='MissileSpawned', 
-            targetfilter={TargetType='6', TargetSubType='2001', SpecificUnitClass=nil, SpecificUnitTargetSide=side_name},
+            name='MslSpawned', 
+            targetfilter={TargetType='6', TargetSubType='2001', SpecificUnitClass=nil, SpecificUnit=nil, TargetSide=side_name},
             area=circlePoints})
     
     ScenEdit_SetAction({mode="add", name="SetMslPath", type="LuaScript", ScriptText = scriptText})
 
-    ScenEdit_SetEventTrigger('ToT CM Strike', {mode='add', name='MissileSpawned'})
+    ScenEdit_SetEventTrigger('ToT CM Strike', {mode='add', name='MslSpawned'})
     ScenEdit_SetEventAction('ToT CM Strike', {mode='add', name='SetMslPath'})
 end
 
-ScenEdit_AttackContact(attacker.guid, target_contact_id.guid, {mode='1', mount=mount_dbid, weapon=wpn_dbid, qty=5})
+local attack = ScenEdit_AttackContact(attacker.guid, target_contact_id.guid, {mode='1', mount=mount_dbid, weapon=wpn_dbid, qty=5})
+if attack then
+print("Attack in progress")
+else
+print("Attack Unsuccessful")
+end
