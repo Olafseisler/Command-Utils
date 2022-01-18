@@ -68,7 +68,7 @@ else
     ScenEdit_SetTrigger({mode='add',
             type='UnitEntersArea',
             name='MissileSpawned', 
-            targetfilter={TargetType='6'},
+            targetfilter={TargetType='6', TargetSubType='2001', SpecificUnitClass=nil, SpecificUnitTargetSide=side_name},
             area=circlePoints})
     
     ScenEdit_SetAction({mode="add", name="SetMslPath", type="LuaScript", ScriptText = scriptText})
