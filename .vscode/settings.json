@@ -30,6 +30,7 @@
         "ScenEdit_MsgBox",
         "ScenEdit_AttackContact",
         "contactId",
-        "ScenEdit_DeleteReferencePoint"
+        "ScenEdit_DeleteReferencePoint",
+        "ScenEdit_CurrentTime"
     ]
 }
