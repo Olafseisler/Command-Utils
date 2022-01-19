@@ -57,11 +57,12 @@ local scriptText = "local id_a = {name='SSGN 726 Ohio [DDS]', guid='GWKW9V-0HM9I
 '    ScenEdit_SetEvent("ToT CM Strike", {mode="remove", IsActive=true, IsRepeatable=true})\r\n'..
 '    ScenEdit_SetAction({mode="remove", type="LuaScript", name="SetMslPath"})\r\n'..
 '    ScenEdit_SetTrigger({mode="remove", type="UnitEntersArea", name="MslSpawned"})\r\n'..
+'    for i=1, 4 do\r\n'..
+'         ScenEdit_DeleteReferencePoint({side=unit_a.side, name=unit_a.name.."-"..i})\r\n'..
+'    end\r\n'..
 'else\r\n'..
 '    ScenEdit_SetKeyValue(unit_a.guid, tostring(missiles + 1))\r\n'..
 'end\r\n'
-
-
 
 local status, exception = pcall(ScenEdit_GetEvent, "ToT CM Strike")
 if status then
