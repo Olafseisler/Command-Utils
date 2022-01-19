@@ -6,7 +6,7 @@ local unit_b = VP_GetUnit({guid=id_b.guid})
 local salvo_size = 5
 local interval = 5
 local v_missile = 500
-local r_missile = 1600
+local r_missile = 1600 
 
 function CalculateDistance(a, deltaT)
     local dist_m = (v_missile^2*deltaT^2 + 2*a*v_missile*deltaT) / (2*(a + v_missile*deltaT))
@@ -22,8 +22,9 @@ else
 end
 
 local perp_dist = CalculateDistance(Tool_Range(unit_a.guid, unit_b.guid), interval*(salvo_size-missiles))
-local total_dist = perp_dist + math.sqrt(perp_dist^2 + Tool_Range(unit_a.guid, unit_b.guid)^2)
-if total_dist > r_missile then perp_dist = r_missile end
+
+if perp_dist > r_missile then perp_dist = r_missile end
+
 local perp_bearing = Tool_Bearing(unit_a.guid, unit_b.guid) + 90 * (-1)^missiles
 local perp_point = World_GetPointFromBearing({latitude=unit_a.latitude, longitude=unit_a.longitude, distance=perp_dist, bearing=perp_bearing})
 
@@ -36,7 +37,7 @@ if missiles >= salvo_size then
     ScenEdit_SetAction({mode="remove", type="LuaScript", name="SetMslPath"})
     ScenEdit_SetTrigger({mode="remove", type="UnitEntersArea", name="MslSpawned"})
     for i=1, 4 do
-        ScenEdit_DeleteReferencePoint({side=unit_a.side, name=unit_a.name.."-"..i})
+        ScenEdit_DeleteReferencePoint({side=unit_a.name, name=unit_a.name.."-"..i})
     end
 else
     ScenEdit_SetKeyValue(unit_a.guid, tostring(missiles + 1))

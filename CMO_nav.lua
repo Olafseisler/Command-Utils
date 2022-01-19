@@ -1,4 +1,4 @@
-local salvoSize = 5
+local salvo_size = 5
 local interval = 5
 local v_missile = 500
 local wpn_dbid = 377
@@ -46,6 +46,8 @@ local scriptText = "local id_a = {name='SSGN 726 Ohio [DDS]', guid='GWKW9V-0HM9I
 'end\r\n'..
 '\r\n'..
 'local perp_dist = CalculateDistance(Tool_Range(unit_a.guid, unit_b.guid), interval*(salvo_size-missiles))\r\n'..
+'local total_dist = perp_dist + math.sqrt(perp_dist^2 + Tool_Range(unit_a.guid, unit_b.guid)^2)\r\n'..
+'if total_dist > r_missile then perp_dist = r_missile end\r\n'..
 'local perp_bearing = Tool_Bearing(unit_a.guid, unit_b.guid) + 90 * (-1)^missiles\r\n'..
 'local perp_point = World_GetPointFromBearing({latitude=unit_a.latitude, longitude=unit_a.longitude, distance=perp_dist, bearing=perp_bearing})\r\n'..
 '\r\n'..
@@ -82,7 +84,7 @@ else
     ScenEdit_SetEventAction('ToT CM Strike', {mode='add', name='SetMslPath'})
 end
 
-local attack = ScenEdit_AttackContact(attacker.guid, target_contact_id.guid, {mode='1', mount=mount_dbid, weapon=wpn_dbid, qty=5})
+local attack = ScenEdit_AttackContact(attacker.guid, target_contact_id.guid, {mode='1', mount=mount_dbid, weapon=wpn_dbid, qty=salvo_size})
 if attack then
 print("Attack in progress")
 else

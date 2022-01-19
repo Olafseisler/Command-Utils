@@ -29,6 +29,7 @@
         "ScenEdit_GetEvent",
         "ScenEdit_MsgBox",
         "ScenEdit_AttackContact",
-        "contactId"
+        "contactId",
+        "ScenEdit_DeleteReferencePoint"
     ]
 }
